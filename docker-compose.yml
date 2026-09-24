@@ -1,0 +1,24 @@
+# Local MySQL 5.7 keeps port 3306. This MySQL 8 is published on 3307.
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: user-mapping-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./migrations/001-create-user-mappings.sql:/docker-entrypoint-initdb.d/001-create-user-mappings.sql:ro
+
+  redis:
+    image: redis:7
+    container_name: user-mapping-redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  mysql_data:
