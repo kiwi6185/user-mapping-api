@@ -10,3 +10,5 @@ docker compose up -d
 npm install
 npm run start:dev
 ```
+
+API docs: http://localhost:3000/docs
